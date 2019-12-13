@@ -1,4 +1,8 @@
 # docker-php5-oracle-mssql
-Repository to DcokerFile
+Clone conf folder before build image.
+
+
+
+
 
 
