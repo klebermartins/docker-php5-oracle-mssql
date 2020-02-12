@@ -1,9 +1,11 @@
 FROM debian:jessie
+ADD conf/sources.list /etc/apt/sources.list
+
 
 RUN apt-get update
-RUN apt-get -y upgrade
+#RUN apt-get -y upgrade
 
-RUN apt-get -y install apache2 php5 libapache2-mod-php5 php5-cli php5-ldap php5-dev php-pear php5-curl curl libaio1 php5-mssql php5-pgsql
+RUN apt-get -y install apache2 php5 libapache2-mod-php5 php5-cli php5-ldap php5-dev php-pear php5-curl curl libaio1 php5-mssql php5-pgsql php5-mysql php5-sqlite
 
 # Instalar as dependencias do OCI8
 ADD conf/oracle-instantclient12.1-basic_12.1.0.2.0-2_amd64.deb /tmp
@@ -16,6 +18,9 @@ RUN rm -rf /tmp/oracle-instantclient12.1-*.deb
 
 # Alterar o Freetds.conf para versao 8
 ADD conf/freetds.conf /etc/freetds
+
+ADD conf/000-default.conf /etc/apache2/sites-available/000-default.conf
+
 
 ENV LD_LIBRARY_PATH /usr/lib/oracle/12.1/client64/lib/
 ENV ORACLE_HOME /usr/lib/oracle/12.1/client64/lib/
